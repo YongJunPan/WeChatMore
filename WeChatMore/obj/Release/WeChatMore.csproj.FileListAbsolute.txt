@@ -1,0 +1,10 @@
+D:\code\WeChatMore\WeChatMore\bin\Release\WeChatMore.exe.config
+D:\code\WeChatMore\WeChatMore\bin\Release\WeChatMore.exe
+D:\code\WeChatMore\WeChatMore\bin\Release\WeChatMore.pdb
+D:\code\WeChatMore\WeChatMore\obj\Release\Interop.IWshRuntimeLibrary.dll
+D:\code\WeChatMore\WeChatMore\obj\Release\WeChatMore.csproj.ResolveComReference.cache
+D:\code\WeChatMore\WeChatMore\obj\Release\WeChatMore.FmMain.resources
+D:\code\WeChatMore\WeChatMore\obj\Release\WeChatMore.Properties.Resources.resources
+D:\code\WeChatMore\WeChatMore\obj\Release\WeChatMore.csproj.GenerateResource.Cache
+D:\code\WeChatMore\WeChatMore\obj\Release\WeChatMore.exe
+D:\code\WeChatMore\WeChatMore\obj\Release\WeChatMore.pdb
