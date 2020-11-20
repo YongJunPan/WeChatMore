@@ -29,22 +29,23 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FmMain));
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cbRegedit = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbShortcut = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // checkBox1
+            // cbRegedit
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.checkBox1.Location = new System.Drawing.Point(257, 283);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(125, 25);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "注册右键菜单";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.cbRegedit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbRegedit.AutoSize = true;
+            this.cbRegedit.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRegedit.Location = new System.Drawing.Point(225, 253);
+            this.cbRegedit.Name = "cbRegedit";
+            this.cbRegedit.Size = new System.Drawing.Size(125, 25);
+            this.cbRegedit.TabIndex = 1;
+            this.cbRegedit.Text = "注册右键菜单";
+            this.cbRegedit.UseVisualStyleBackColor = true;
+            this.cbRegedit.CheckedChanged += new System.EventHandler(this.cbRegedit_CheckedChanged);
             // 
             // label1
             // 
@@ -53,11 +54,26 @@
             this.label1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(80, 120);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(232, 27);
+            this.label1.Size = new System.Drawing.Size(232, 54);
             this.label1.TabIndex = 2;
-            this.label1.Text = "拖拽文件或快捷方式到此";
+            this.label1.Text = "拖拽文件或快捷方式到此\r\n或双击界面任意位置";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.DragDrop += new System.Windows.Forms.DragEventHandler(this.FmMain_DragDrop);
             this.label1.DragEnter += new System.Windows.Forms.DragEventHandler(this.FmMain_DragEnter);
+            this.label1.DoubleClick += new System.EventHandler(this.FmMain_DoubleClick);
+            // 
+            // cbShortcut
+            // 
+            this.cbShortcut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbShortcut.AutoSize = true;
+            this.cbShortcut.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbShortcut.Location = new System.Drawing.Point(225, 284);
+            this.cbShortcut.Name = "cbShortcut";
+            this.cbShortcut.Size = new System.Drawing.Size(157, 25);
+            this.cbShortcut.TabIndex = 1;
+            this.cbShortcut.Text = "创建微信快捷方式";
+            this.cbShortcut.UseVisualStyleBackColor = true;
+            this.cbShortcut.CheckedChanged += new System.EventHandler(this.cbShortcut_CheckedChanged);
             // 
             // FmMain
             // 
@@ -67,7 +83,8 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(384, 311);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.cbShortcut);
+            this.Controls.Add(this.cbRegedit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -80,6 +97,7 @@
             this.Load += new System.EventHandler(this.FmMain_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FmMain_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FmMain_DragEnter);
+            this.DoubleClick += new System.EventHandler(this.FmMain_DoubleClick);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -87,8 +105,9 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbRegedit;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox cbShortcut;
     }
 }
 

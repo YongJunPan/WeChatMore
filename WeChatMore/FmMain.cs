@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Water.Open2;
@@ -27,13 +29,30 @@ namespace WeChatMore
                 runWeChat(PathHelper.FilePath);
                 this.Close();
                 this.Dispose();
-                System.Environment.Exit(System.Environment.ExitCode);
+                Environment.Exit(Environment.ExitCode);
             }
 
+            // 读取注册表微信安装目录
+            regHelper.GetSoftWare("微信", out PathHelper.WeChatPath);
+            PathHelper.WeChatPath = PathHelper.WeChatPath + "\\WeChat.exe";
+
+            // 判断是否已注册右键菜单
             if (regHelper.IsRegeditItemExist("WeChatMore"))
             {
-                this.checkBox1.Checked = true;
+                this.cbRegedit.Checked = true;
             }
+
+            // 判断是否已创建快捷方式
+            if (File.Exists(PathHelper.LnkPath))
+            {
+                this.cbShortcut.Checked = true;
+            }
+        }
+
+
+        private void FmMain_DoubleClick(object sender, EventArgs e)
+        {
+            runWeChat(PathHelper.WeChatPath);
         }
 
         #region 文件拖动启动
@@ -64,13 +83,13 @@ namespace WeChatMore
             {
                 path = PathHelper.getLnkPath(path);
             }
-            string name = System.IO.Path.GetFileName(path);
+            string name = Path.GetFileName(path);
             if (name.Equals("WeChat.exe"))
             {
                 Process[] localByName = Process.GetProcessesByName("WeChat");
                 foreach (Process pro in localByName)
                 {
-                    //WeChat_App_Instance_Identity_Mutex_Name
+                    // WeChat_App_Instance_Identity_Mutex_Name
                     checkProcessAndClose(pro, "WeChat_App_Instance_Identity_Mutex_Name");
                 }
                 Process.Start(path);
@@ -131,9 +150,10 @@ namespace WeChatMore
         }
         #endregion
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        #region 注册右键菜单
+        private void cbRegedit_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            if (cbRegedit.Checked)
             {
                 regHelper.AddMenuItem("WeChatMore", Application.ExecutablePath);
             }
@@ -142,5 +162,27 @@ namespace WeChatMore
                 regHelper.DelMenuItem("WeChatMore");
             }
         }
+        #endregion
+
+        #region 创建微信快捷方式
+        private void cbShortcut_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbShortcut.Checked)
+            {   
+                if (!File.Exists(PathHelper.LnkPath))
+                {
+                    PathHelper.CreateShortcut(PathHelper.DeskTopPath, "微信", Assembly.GetEntryAssembly().Location, PathHelper.WeChatPath, "", PathHelper.WeChatPath);
+                }
+            }
+            else
+            {
+                if (File.Exists(PathHelper.LnkPath))
+                {
+                    File.Delete(PathHelper.LnkPath);
+                }
+            }
+        }
+        #endregion
+
     }
 }

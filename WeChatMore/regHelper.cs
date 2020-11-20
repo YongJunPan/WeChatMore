@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System.Collections.Generic;
 
 namespace WeChatMore
 {
@@ -67,5 +68,63 @@ namespace WeChatMore
             hkml.Close();
             return false;
         }
+
+        /// <summary>
+        /// 软件是否安装
+        /// </summary>
+        /// <param name="SoftWareName"> 软件名称</param>
+        /// <param name="SoftWarePath "> 安装路径</param>
+        /// <returns> true or false </returns>
+        public static bool GetSoftWare(string SoftWareName, out string SoftWarePath)
+        {
+            SoftWarePath = null;
+            List<RegistryKey> RegistryKeys = new List<RegistryKey>();
+            RegistryKeys.Add(Registry.ClassesRoot);
+            RegistryKeys.Add(Registry.CurrentConfig);
+            RegistryKeys.Add(Registry.CurrentUser);
+            RegistryKeys.Add(Registry.LocalMachine);
+            RegistryKeys.Add(Registry.PerformanceData);
+            RegistryKeys.Add(Registry.Users);
+            Dictionary<string, string> Softwares = new Dictionary<string, string>();
+            string SubKeyName = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
+            foreach (RegistryKey Registrykey in RegistryKeys)
+            {
+                using (RegistryKey RegistryKey1 = Registrykey.OpenSubKey(SubKeyName, false))
+                {
+                    if (RegistryKey1 == null) // 判断对象不存在
+                        continue;
+                    if (RegistryKey1.GetSubKeyNames() == null)
+                        continue;
+                    string[] KeyNames = RegistryKey1.GetSubKeyNames();
+                    foreach (string KeyName in KeyNames)// 遍历子项名称的字符串数组
+                    {
+                        using (RegistryKey RegistryKey2 = RegistryKey1.OpenSubKey(KeyName, false)) // 遍历子项节点
+                        {
+                            if (RegistryKey2 == null)
+                                continue;
+                            string SoftwareName = RegistryKey2.GetValue("DisplayName", "").ToString(); // 获取软件名
+                            string InstallLocation = RegistryKey2.GetValue("InstallLocation", "").ToString(); // 获取安装路径
+                            if (!string.IsNullOrEmpty(InstallLocation) && !string.IsNullOrEmpty(SoftwareName))
+                            {
+                                if (!Softwares.ContainsKey(SoftwareName))
+                                    Softwares.Add(SoftwareName, InstallLocation);
+                            }
+                        }
+                    }
+                }
+            }
+            if (Softwares.Count <= 0)
+                return false;
+            foreach (string SoftwareName in Softwares.Keys)
+            {
+                if (SoftwareName.Contains(SoftWareName))
+                {
+                    SoftWarePath = Softwares[SoftwareName];
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }
