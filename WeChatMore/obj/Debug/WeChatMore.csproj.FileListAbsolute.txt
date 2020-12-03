@@ -16,3 +16,4 @@ D:\code\WeChatMore\WeChatMore\obj\Debug\WeChatMore.Properties.Resources.resource
 D:\code\WeChatMore\WeChatMore\obj\Debug\WeChatMore.csproj.GenerateResource.Cache
 D:\code\WeChatMore\WeChatMore\obj\Debug\Interop.IWshRuntimeLibrary.dll
 D:\code\WeChatMore\WeChatMore\obj\Debug\WeChatMore.csproj.ResolveComReference.cache
+D:\code\WeChatMore\WeChatMore\bin\Debug\Interop.IWshRuntimeLibrary.dll

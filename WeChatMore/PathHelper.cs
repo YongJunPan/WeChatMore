@@ -1,6 +1,7 @@
 ﻿using IWshRuntimeLibrary;
 using System;
 using System.IO;
+using System.Text;
 
 namespace WeChatMore
 {
@@ -11,30 +12,6 @@ namespace WeChatMore
         public static string WeChatPath;
         public static string DeskTopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         public static string LnkPath = DeskTopPath + "\\微信.lnk";
-
-
-        /// <summary>
-        /// 获取快捷方式指向的路径
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string getLnkPath(string path)
-        {
-            //快捷方式的路径 = @"d:\Test.lnk";
-            if (System.IO.File.Exists(path))
-            {
-                WshShell shell = new WshShell();
-                IWshShortcut objectIW = (IWshShortcut)shell.CreateShortcut(path);
-                //快捷方式指向的路径.Text = objectIW.TargetPath;
-                //快捷方式指向的目标目录.Text = objectIW.WorkingDirectory;
-                return objectIW.TargetPath;
-            }
-            else
-            {
-                return "";
-            }
-        }
-
 
         /// <summary>
         /// 创建快捷方式
@@ -63,6 +40,54 @@ namespace WeChatMore
             shortcut.Description = description;//设置备注
             shortcut.IconLocation = string.IsNullOrEmpty(iconLocation) ? targetPath : iconLocation;//设置图标路径
             shortcut.Save();//保存快捷方式
+        }
+
+
+        /// <summary>
+        /// 将文本写入txt文件中
+        /// </summary>
+        /// <param name="DirPath">文件路径</param>
+        /// <param name="FileName">文件名称</param>
+        /// <param name="Strs">字符串</param>
+        /// <param name="IsCleanFile">是否先清空文件</param>
+        // public static void WriteTxtToFile(string DirPath, string FileName, string Strs, bool IsCleanFile = false)
+        // 测试用
+        public static void WriteTxtToFile(string Strs, bool IsCleanFile = false)
+        {
+            string DirPath = DeskTopPath;
+            string FileName = "\\test.txt";
+            if (string.IsNullOrEmpty(Strs))
+                return;
+            if (!Directory.Exists(DirPath))  //如果不存在就创建file文件夹
+            {
+                Directory.CreateDirectory(DirPath);
+            }
+            if (!System.IO.File.Exists(DirPath + FileName))
+            {
+                System.IO.File.Create(DirPath + FileName);
+            }
+
+            FileStream fs = null;
+            //将待写的入数据从字符串转换为字节数组
+            Encoding encoder = Encoding.UTF8;
+            byte[] bytes = encoder.GetBytes(Strs + "\r\n");
+            try
+            {
+                fs = System.IO.File.OpenWrite(DirPath + FileName);
+                //设定书写的开始位置为文件的末尾
+                fs.Position = fs.Length;
+                //将待写入内容追加到文件末尾
+                fs.Write(bytes, 0, bytes.Length);
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine("文件打开失败{0}", ex.ToString());
+                throw ex;
+            }
+            finally
+            {
+                fs.Close();
+            }
         }
     }
 }

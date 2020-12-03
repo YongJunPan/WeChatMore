@@ -5,7 +5,6 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Water.Open2;
 
 namespace WeChatMore
 {
@@ -24,8 +23,9 @@ namespace WeChatMore
                 this.Visible = false;
                 for (int i = 0; i < argLeng; i++)
                 {
-                    PathHelper.FilePath += PathHelper.AutoPath[i];
+                    PathHelper.FilePath += PathHelper.AutoPath[i] + " ";
                 }
+                PathHelper.FilePath = PathHelper.FilePath.Trim();
                 runWeChat(PathHelper.FilePath);
                 this.Close();
                 this.Dispose();
@@ -55,34 +55,10 @@ namespace WeChatMore
             runWeChat(PathHelper.WeChatPath);
         }
 
-        #region 文件拖动启动
-        private void FmMain_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                e.Effect = DragDropEffects.Link;
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
-        }
-
-        private void FmMain_DragDrop(object sender, DragEventArgs e)
-        {
-            PathHelper.FilePath = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-            runWeChat(PathHelper.FilePath);
-        }
-        #endregion
-
         #region 启动微信函数
         private void runWeChat(string path)
         {
             ClearMemory();
-            if (path.ToLower().Contains(".lnk"))
-            {
-                path = PathHelper.getLnkPath(path);
-            }
             string name = Path.GetFileName(path);
             if (name.Equals("WeChat.exe"))
             {

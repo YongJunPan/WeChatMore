@@ -8,4 +8,4 @@ D:\code\WeChatMore\WeChatMore\obj\Release\WeChatMore.Properties.Resources.resour
 D:\code\WeChatMore\WeChatMore\obj\Release\WeChatMore.csproj.GenerateResource.Cache
 D:\code\WeChatMore\WeChatMore\obj\Release\WeChatMore.exe
 D:\code\WeChatMore\WeChatMore\obj\Release\WeChatMore.pdb
-D:\code\WeChatMore\WeChatMore\obj\Release\WeChatMore.csprojResolveAssemblyReference.cache
+D:\code\WeChatMore\WeChatMore\bin\Release\Interop.IWshRuntimeLibrary.dll

@@ -52,14 +52,12 @@
             this.label1.AllowDrop = true;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(80, 120);
+            this.label1.Location = new System.Drawing.Point(110, 120);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(232, 54);
+            this.label1.Size = new System.Drawing.Size(172, 27);
             this.label1.TabIndex = 2;
-            this.label1.Text = "拖拽文件或快捷方式到此\r\n或双击界面任意位置";
+            this.label1.Text = "双击界面任意位置";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.DragDrop += new System.Windows.Forms.DragEventHandler(this.FmMain_DragDrop);
-            this.label1.DragEnter += new System.Windows.Forms.DragEventHandler(this.FmMain_DragEnter);
             this.label1.DoubleClick += new System.EventHandler(this.FmMain_DoubleClick);
             // 
             // cbShortcut
@@ -95,8 +93,6 @@
             this.Text = "WeChatMore";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.FmMain_Load);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FmMain_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FmMain_DragEnter);
             this.DoubleClick += new System.EventHandler(this.FmMain_DoubleClick);
             this.ResumeLayout(false);
             this.PerformLayout();

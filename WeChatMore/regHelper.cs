@@ -43,7 +43,8 @@ namespace WeChatMore
             {
                 RegistryKey delKey = Registry.CurrentUser.OpenSubKey(@"Software\Classes\exefile\shell", true);
                 //delKey.DeleteSubKey(itemName, true);
-                delKey.DeleteSubKeyTree(itemName, true); 
+                //delKey.DeleteSubKeyTree(itemName, true); 
+                delKey.DeleteSubKeyTree(itemName);
                 delKey.Close();
             }
         }
@@ -86,7 +87,8 @@ namespace WeChatMore
             RegistryKeys.Add(Registry.PerformanceData);
             RegistryKeys.Add(Registry.Users);
             Dictionary<string, string> Softwares = new Dictionary<string, string>();
-            string SubKeyName = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
+            string SubKeyName = HandleModle.Is64Bits() ? 
+                @"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall" : @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
             foreach (RegistryKey Registrykey in RegistryKeys)
             {
                 using (RegistryKey RegistryKey1 = Registrykey.OpenSubKey(SubKeyName, false))

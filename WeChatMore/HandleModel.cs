@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
 
-namespace Water.Open2
+namespace WeChatMore
 {
 
     static class HandleModle
@@ -18,7 +16,7 @@ namespace Water.Open2
         /// 查看电脑是否是64位系统
         /// </summary>
         /// <returns>返回是否是64位系统bool值</returns>
-        private static bool Is64Bits()
+        public static bool Is64Bits()
         {
             return Marshal.SizeOf(typeof(IntPtr)) == 8 ? true : false;
         }
